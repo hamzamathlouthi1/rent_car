@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: ${PORT:8081}
 spring:
   datasource:
     url: ${CAR_DATABASE_URL:jdbc:mysql://localhost:3306/cars_service?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC}

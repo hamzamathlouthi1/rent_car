@@ -1,5 +1,5 @@
 server:
-  port: 8082
+  port: ${PORT:8082}
 spring:
   datasource:
     url: ${RESERVATION_DATABASE_URL:jdbc:mysql://localhost:3306/reservations_service}
