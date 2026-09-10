@@ -1,0 +1,23 @@
+server:
+  port: 8082
+spring:
+  datasource:
+    url: ${RESERVATION_DATABASE_URL:jdbc:mysql://localhost:3306/reservations_service}
+    username: ${RESERVATION_DATABASE_USERNAME:root}
+    password: ${RESERVATION_DATABASE_PASSWORD:}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+jwt:
+  secret: ${JWT_SECRET}
+services:
+  cars-url: ${CARS_SERVICE_URL:http://localhost:8081}
+imagekit:
+  private-key: ${IMAGEKIT_PRIVATE_KEY}

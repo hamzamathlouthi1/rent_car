@@ -1,0 +1,20 @@
+server:
+  port: 8081
+spring:
+  datasource:
+    url: ${CAR_DATABASE_URL:jdbc:mysql://localhost:3306/cars_service?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC}
+    username: ${CAR_DATABASE_USERNAME:location_user}
+    password: ${CAR_DATABASE_PASSWORD:location_password}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+app:
+  jwt:
+    secret: ${JWT_SECRET:change-this-development-secret-key-32chars}
+imagekit:
+  url-endpoint: ${IMAGEKIT_URL_ENDPOINT}
+  public-key: ${IMAGEKIT_PUBLIC_KEY}
+  private-key: ${IMAGEKIT_PRIVATE_KEY}

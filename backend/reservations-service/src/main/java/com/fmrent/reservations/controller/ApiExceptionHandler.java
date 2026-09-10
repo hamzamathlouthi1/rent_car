@@ -1,0 +1,3 @@
+package com.fmrent.reservations.controller;
+import java.util.Map; import org.springframework.http.*; import org.springframework.web.bind.MethodArgumentNotValidException; import org.springframework.web.bind.annotation.*;
+@RestControllerAdvice public class ApiExceptionHandler {@ExceptionHandler({IllegalArgumentException.class})ResponseEntity<Map<String,String>> bad(Exception e){return ResponseEntity.badRequest().body(Map.of("message",e.getMessage()));}@ExceptionHandler(MethodArgumentNotValidException.class)ResponseEntity<Map<String,String>> validation(){return ResponseEntity.badRequest().body(Map.of("message","Vérifiez les informations de réservation."));}}

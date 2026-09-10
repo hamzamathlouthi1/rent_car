@@ -1,0 +1,40 @@
+<main class="auth-page login-page">
+  <section class="panel">
+    <header class="panel-header">
+      <a class="brand" routerLink="/"><span class="brand-mark">F</span><span><strong>FM DRIVE</strong><small>RENT A CAR</small></span></a>
+      <a class="back" routerLink="/"><span>←</span> Retour au site</a>
+    </header>
+
+    <div class="form-wrap">
+      <p class="eyebrow"><i></i> ESPACE CLIENT</p>
+      <h1>Bon retour<br><em>parmi nous.</em></h1>
+      <p class="intro">Connectez-vous pour gérer vos réservations et reprendre la route.</p>
+
+      @if (error()) { <div class="error"><span>!</span><p>{{ error() }}</p></div> }
+
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <label class="field">
+          <span>Adresse e-mail</span>
+          <div class="input-wrap"><i>✉</i><input type="email" formControlName="email" autocomplete="email" placeholder="nom@exemple.com" [class.invalid]="form.controls.email.touched && form.controls.email.invalid"></div>
+          @if (form.controls.email.touched && form.controls.email.invalid) { <small>Saisissez une adresse e-mail valide.</small> }
+        </label>
+        <label class="field">
+          <span>Mot de passe</span>
+          <div class="input-wrap"><i>◇</i><input type="password" formControlName="password" autocomplete="current-password" placeholder="Votre mot de passe" [class.invalid]="form.controls.password.touched && form.controls.password.invalid"></div>
+        </label>
+        <div class="form-options"><label><input type="checkbox"><span>Se souvenir de moi</span></label><a href="mailto:contact@fmrent.tn">Mot de passe oublié ?</a></div>
+        <button class="submit" [disabled]="loading()"><span>{{ loading() ? 'Connexion en cours…' : 'Se connecter' }}</span><b>→</b></button>
+      </form>
+
+      <div class="divider"><span>ou</span></div>
+      <p class="switch">Nouveau chez FM Drive ? <a routerLink="/register">Créer un compte</a></p>
+      <div class="secure"><span>✓</span><p><strong>Connexion sécurisée</strong><small>Vos données sont chiffrées et protégées.</small></p></div>
+    </div>
+  </section>
+
+  <aside class="visual">
+    <div class="visual-top"><span>36°52′ N · 10°20′ E</span><b>SIDI BOU SAÏD, TUNISIE</b></div>
+    <div class="visual-copy"><p>ESCAPADE MÉDITERRANÉENNE</p><strong>La Tunisie,<br><em>à votre rythme.</em></strong><span>Des routes côtières aux villages emblématiques,<br>votre prochaine histoire commence ici.</span></div>
+    <div class="trust-bar"><div><strong>4.9</strong><span>★★★★★<small>AVIS CLIENTS</small></span></div><i></i><div><strong>24/7</strong><span><small>ASSISTANCE</small></span></div><i></i><div><strong>0</strong><span><small>FRAIS CACHÉS</small></span></div></div>
+  </aside>
+</main>

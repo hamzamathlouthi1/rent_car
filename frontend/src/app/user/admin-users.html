@@ -1,0 +1,56 @@
+<main class="admin-shell">
+  <aside class="sidebar">
+    <a class="brand" routerLink="/"><span class="brand-icon">F</span><span><strong>FM DRIVE</strong><small>RENT A CAR</small></span></a>
+    <div class="menu-label">ESPACE ADMIN</div>
+    <nav>
+      <a routerLink="/admin/cars"><span class="nav-icon">◇</span><span>Véhicules</span></a>
+      <a class="active" routerLink="/admin/users"><span class="nav-icon">○</span><span>Utilisateurs</span><b>{{ users().length }}</b></a>
+      <a routerLink="/admin/reservations"><span class="nav-icon">▣</span><span>Réservations</span></a>
+      <a routerLink="/"><span class="nav-icon">↗</span><span>Voir le site</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      @if (auth.currentUser(); as admin) {
+        <div class="avatar">{{ admin.firstName.charAt(0) }}{{ admin.lastName.charAt(0) }}</div>
+        <div class="admin-info"><strong>{{ admin.firstName }} {{ admin.lastName }}</strong><small>{{ admin.email }}</small></div>
+      }
+      <button type="button" title="Déconnexion" (click)="logout()">↪</button>
+    </div>
+  </aside>
+
+  <section class="content">
+    <header class="topbar">
+      <div><p class="eyebrow">GESTION DES COMPTES</p><h1>Utilisateurs</h1><p class="subtitle">Supervisez les membres et contrôlez les accès à la plateforme.</p></div>
+      <a class="site-link" routerLink="/">Aperçu du site <span>↗</span></a>
+    </header>
+
+    <div class="stats">
+      <article><span class="stat-icon red">○</span><div><small>TOTAL COMPTES</small><strong>{{ users().length }}</strong><p>comptes enregistrés</p></div></article>
+      <article><span class="stat-icon">♙</span><div><small>CLIENTS</small><strong>{{ regularUsers() }}</strong><p>utilisateurs actifs</p></div></article>
+      <article><span class="stat-icon">◆</span><div><small>ADMINISTRATEURS</small><strong>{{ admins() }}</strong><p>accès protégés</p></div></article>
+    </div>
+
+    @if (error()) { <div class="notice error"><span>!</span>{{ error() }}<button (click)="error.set('')">×</button></div> }
+    @if (success()) { <div class="notice success"><span>✓</span>{{ success() }}<button (click)="success.set('')">×</button></div> }
+
+    <section class="users-panel">
+      <div class="panel-head"><div><p>RÉPERTOIRE</p><h2>Liste des utilisateurs</h2></div><span>{{ users().length.toString().padStart(2, '0') }} comptes</span></div>
+      @if (loading()) {
+        <div class="state"><i></i><strong>Chargement des utilisateurs</strong><p>Récupération des comptes en cours…</p></div>
+      } @else {
+        <div class="table">
+          <div class="table-head"><span>UTILISATEUR</span><span>RÔLE</span><span>INSCRIPTION</span><span>ACTION</span></div>
+          @for (user of users(); track user.id) {
+            <article class="user-row">
+              <div class="identity"><b>{{ user.firstName.charAt(0) }}{{ user.lastName.charAt(0) }}</b><span><strong>{{ user.firstName }} {{ user.lastName }}</strong><small>{{ user.email }}</small></span></div>
+              <span class="role" [class.admin]="user.role === 'ADMIN'"><i></i>{{ user.role === 'ADMIN' ? 'Administrateur' : 'Client' }}</span>
+              <time><strong>{{ user.createdAt | date:'dd MMM yyyy' }}</strong><small>{{ user.createdAt | date:'HH:mm' }}</small></time>
+              <button class="delete" [disabled]="user.role === 'ADMIN' || deletingId() === user.id" (click)="deleteUser(user)"><span>⌫</span>{{ deletingId() === user.id ? 'Suppression…' : user.role === 'ADMIN' ? 'Protégé' : 'Supprimer' }}</button>
+            </article>
+          } @empty {
+            <div class="state"><span>○</span><strong>Aucun utilisateur</strong><p>Les nouveaux comptes apparaîtront ici.</p></div>
+          }
+        </div>
+      }
+    </section>
+  </section>
+</main>

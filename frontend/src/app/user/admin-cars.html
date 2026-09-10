@@ -1,0 +1,73 @@
+<main class="admin-shell">
+  <aside class="sidebar">
+    <a class="brand" routerLink="/"><span class="brand-icon">F</span><span><strong>FM DRIVE</strong><small>RENT A CAR</small></span></a>
+    <div class="menu-label">ESPACE ADMIN</div>
+    <nav>
+      <a class="active" routerLink="/admin/cars"><span class="nav-icon">◇</span><span>Véhicules</span><b>{{ cars().length }}</b></a>
+      <a routerLink="/admin/users"><span class="nav-icon">○</span><span>Utilisateurs</span></a>
+      <a routerLink="/admin/reservations"><span class="nav-icon">▣</span><span>Réservations</span></a>
+      <a routerLink="/"><span class="nav-icon">↗</span><span>Voir le site</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      @if (auth.currentUser(); as admin) {
+        <div class="avatar">{{ admin.firstName.charAt(0) }}{{ admin.lastName.charAt(0) }}</div>
+        <div class="admin-info"><strong>{{ admin.firstName }} {{ admin.lastName }}</strong><small>{{ admin.email }}</small></div>
+      }
+      <button type="button" title="Déconnexion" (click)="logout()">↪</button>
+    </div>
+  </aside>
+
+  <section class="content">
+    <header class="topbar">
+      <div><p class="eyebrow">GESTION DE LA FLOTTE</p><h1>Véhicules</h1><p class="subtitle">Gérez le catalogue et les disponibilités de votre flotte.</p></div>
+      <a class="site-link" routerLink="/">Aperçu du site <span>↗</span></a>
+    </header>
+
+    <div class="stats">
+      <article><span class="stat-icon red">◇</span><div><small>VÉHICULES</small><strong>{{ cars().length }}</strong><p>dans le catalogue</p></div></article>
+      <article><span class="stat-icon">◎</span><div><small>HÉBERGEMENT</small><strong>ImageKit</strong><p>images optimisées</p></div></article>
+      <article><span class="stat-icon">✓</span><div><small>STATUT API</small><strong>En ligne</strong><p>catalogue synchronisé</p></div></article>
+    </div>
+
+    @if (error()) { <div class="notice error"><span>!</span>{{ error() }}<button (click)="error.set('')">×</button></div> }
+    @if (success()) { <div class="notice success"><span>✓</span>{{ success() }}<button (click)="success.set('')">×</button></div> }
+
+    <div class="workspace">
+      <form (ngSubmit)="submit()">
+        <div class="panel-title"><div><p>NOUVEAU VÉHICULE</p><h2>Ajouter à la flotte</h2></div><span>01</span></div>
+        <label class="upload multi-upload"><input type="file" accept="image/*" multiple (change)="chooseImages($event)"><span class="upload-content"><b>＋</b><strong>Ajouter plusieurs photos</strong><small>1 à 8 images · la première sera la couverture</small></span></label>
+        @if(imagePreviews.length){<div class="preview-grid">@for(preview of imagePreviews;track preview;let i=$index){<div><img [src]="preview" [alt]="'Photo '+(i+1)"><span>{{i===0?'COUVERTURE':i+1}}</span><button type="button" (click)="removePreview(i)">×</button></div>}</div>}
+        <div class="form-grid">
+          <label class="wide"><span>Modèle du véhicule</span><input required name="name" [(ngModel)]="model.name" placeholder="Ex. Peugeot 208"></label>
+          <label><span>Catégorie</span><select name="category" [(ngModel)]="model.category"><option>Citadine</option><option>SUV</option><option>Berline</option><option>Premium</option><option>Utilitaire</option></select></label>
+          <label><span>Prix / jour</span><div class="suffix"><input required type="number" min="1" name="price" [(ngModel)]="model.price"><b>DT</b></div></label>
+          <label><span>Places</span><input required type="number" min="1" max="9" name="seats" [(ngModel)]="model.seats"></label>
+          <label><span>Transmission</span><select name="transmission" [(ngModel)]="model.transmission"><option>Manuelle</option><option>Automatique</option></select></label>
+          <label><span>Carburant</span><select name="fuel" [(ngModel)]="model.fuel"><option>Essence</option><option>Diesel</option><option>Hybride</option><option>Électrique</option></select></label>
+          <label><span>Badge</span><input name="badge" [(ngModel)]="model.badge" placeholder="Nouveau"></label>
+        </div>
+        <button class="primary" [disabled]="loading() || !imageFiles.length">{{ loading() ? 'Publication en cours…' : 'Publier le véhicule' }} <span>→</span></button>
+      </form>
+
+      <section class="fleet-panel">
+        <div class="panel-title"><div><p>CATALOGUE ACTUEL</p><h2>Votre flotte</h2></div><span>{{ cars().length.toString().padStart(2, '0') }}</span></div>
+        @if (loadingCars()) {
+          <div class="empty-state"><i class="spinner"></i><strong>Chargement de la flotte</strong></div>
+        } @else {
+          <div class="fleet-list">
+            @for (car of cars(); track car.id) {
+              <article class="car-row">
+                <div class="car-image"><img [src]="car.image" [alt]="car.name">@if(car.badge){<b>{{ car.badge }}</b>}</div>
+                <div class="car-main"><small>{{ car.category }}</small><h3>{{ car.name }}</h3><p><span>{{ car.transmission }}</span><span>{{ car.fuel }}</span><span>{{ car.seats }} places</span></p></div>
+                <div class="price"><strong>{{ car.price }}</strong><small>DT / JOUR</small></div>
+                <button class="delete" [disabled]="deletingId() === car.id" (click)="remove(car)" type="button"><span>⌫</span>{{ deletingId() === car.id ? 'Suppression…' : 'Supprimer' }}</button>
+              </article>
+            } @empty {
+              <div class="empty-state"><span>◇</span><strong>Votre flotte est vide</strong><p>Ajoutez votre premier véhicule avec le formulaire.</p></div>
+            }
+          </div>
+        }
+      </section>
+    </div>
+  </section>
+</main>

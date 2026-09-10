@@ -1,0 +1,161 @@
+@media (max-width: 940px) {
+  .auth-page { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .auth-page .panel { padding-inline: 28px; }
+  .auth-page .form-wrap { max-width: 390px; }
+}
+
+.header .account-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 0 16px;
+  border: 1px solid #e10d1a;
+  border-radius: 5px;
+  color: #e10d1a !important;
+  font-size: 11px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: background .2s ease, color .2s ease;
+}
+
+.header .account-link:hover {
+  background: #e10d1a;
+  color: #fff !important;
+  transform: none;
+}
+
+@media (max-width: 900px) {
+  .header .account-link { display: none; }
+  .header:has(nav.open) .account-link {
+    display: flex;
+    position: absolute;
+    top: 255px;
+    left: 25px;
+    right: 25px;
+    min-height: 42px;
+    border-color: #e10d1a;
+    background: #e10d1a;
+    color: #fff !important;
+  }
+}
+
+@media (max-width: 850px) {
+  .admin-shell { grid-template-columns: 1fr; }
+  .admin-shell .sidebar { min-width: 0; }
+  .admin-shell .sidebar nav { min-width: 0; overflow-x: auto; justify-content: flex-start; }
+  .admin-shell .sidebar nav a { flex: 0 0 42px; justify-content: center; padding: 0; }
+  .admin-shell .sidebar nav a b { margin-left: 25px; }
+  .admin-shell .workspace { min-width: 0; }
+  .preview-grid { grid-template-columns: repeat(auto-fit, minmax(75px, 1fr)); }
+
+  .admin-reservations .list { overflow-x: auto; padding: 8px; }
+  .admin-reservations .list article { grid-template-columns: 75px minmax(150px, 1fr) minmax(110px, .8fr) 125px; min-width: 620px; gap: 10px; }
+  .admin-reservations .list img { width: 75px; height: 58px; }
+}
+
+@media (max-width: 760px) {
+  .auth-page { display: block; }
+  .auth-page .visual { display: none; }
+  .auth-page .panel { min-height: 100vh; padding: 20px; }
+  .auth-page .form-wrap { margin: 45px auto 20px; padding: 28px; background: #fff; border: 1px solid #ececef; border-radius: 18px; box-shadow: 0 24px 70px #07121c36; }
+}
+
+@media (max-width: 700px) {
+  .hero-video-stage { min-height: 760px; }
+  .hero-video-stage .hero-copy { width: 100%; }
+  .hero-video-stage h1 { font-size: 54px; letter-spacing: -4px; }
+  .cars { grid-template-columns: 1fr; }
+  .car-img { height: 260px; }
+  .about { grid-template-columns: 1fr; }
+  .section { padding: 75px 5%; }
+}
+
+@media (max-width: 650px) {
+  .booking-page { width: 100%; padding: 0; grid-template-columns: 1fr; }
+  .booking-card { position: static; }
+  .vehicle-stage, .booking-card { border-radius: 0; border-inline: 0; padding: 12px; }
+  .gallery { display: block; }
+  .main-image { height: 310px; }
+  .thumbs { margin-top: 7px; flex-direction: row; max-height: none; }
+  .thumbs button { flex-basis: 80px; height: 62px; }
+  .booking-page .vehicle-copy { align-items: start; flex-wrap: wrap; gap: 12px; }
+  .booking-page .vehicle-copy > strong { margin-left: auto; font-size: 19px; }
+  .booking-page .spec-row { grid-template-columns: 1fr 1fr; }
+  .booking-page .spec-row span { padding: 13px 5px; font-size: 9px; }
+  .booking-card { padding: 24px 17px; }
+  .booking-card .form-grid, .booking-card .documents { grid-template-columns: 1fr; }
+  .booking-card .documents label { height: 55px; }
+
+  .client-nav { padding: 0 15px; }
+  .client-nav nav { display: none; }
+  .client-nav .logo { width: 130px; }
+  .profile > div { display: none; }
+  .client-nav .profile button { font-size: 0; }
+  .client-nav .profile button:after { content: '\2192'; font-size: 15px; }
+  .client-nav + main .hero { padding: 45px 20px; min-height: 230px; }
+  .client-nav + main .hero h1 { font-size: 39px; }
+  .client-nav + main .content { width: 100%; margin: 0; padding: 18px; }
+  .summary { grid-template-columns: 1fr; }
+  .summary article { border-right: 0; border-bottom: 1px solid #eee; padding: 15px 20px; }
+  .bookings > article { grid-template-columns: 1fr; }
+  .bookings .car { height: 210px; }
+  .bookings .price { grid-column: auto; }
+}
+
+@media (max-width: 480px) {
+  .header { padding-inline: 15px; }
+  .header .wordmark { width: 126px; height: 48px; }
+  .header .bookings-link, .header .admin-link { display: none; }
+  .hero-video-stage { min-height: 700px; padding: 95px 18px 70px; }
+  .hero-video-stage h1 { font-size: 43px; letter-spacing: -3px; }
+  .hero-video-stage .actions .primary { width: 100%; }
+  .hero-video-stage .stats { gap: 8px; }
+  .hero-video-stage .stats div { padding-right: 8px; }
+  .hero-video-stage .stats strong { font-size: 18px; }
+  .filters { overflow-x: auto; white-space: nowrap; }
+
+  .auth-page .panel { padding: 12px; }
+  .auth-page .form-wrap { padding: 20px 14px; border-radius: 14px; }
+  .auth-page .form-options { flex-wrap: wrap; gap: 8px; }
+  .auth-page h1 { font-size: 33px; }
+
+  .admin-shell .content { padding-inline: 12px; }
+  .admin-shell .topbar { gap: 10px; }
+  .admin-shell .topbar h1 { font-size: 29px; }
+  .admin-shell .site-link { display: none; }
+  .admin-shell .workspace form, .admin-shell .fleet-panel { padding: 14px; }
+  .admin-shell .car-row { grid-template-columns: 72px minmax(0, 1fr); }
+  .admin-shell .car-image img { width: 72px; height: 58px; }
+  .users-panel { border-radius: 12px; }
+  .users-panel .panel-head { align-items: flex-start; gap: 12px; flex-direction: column; }
+  .users-panel .panel-head > span { align-self: flex-start; }
+  .users-panel .table { padding-bottom: 8px; }
+  .users-panel .table:after, .admin-reservations .list:after { content: 'Faites glisser pour voir plus'; display: block; padding: 8px 20px; color: #999; font-size: 8px; }
+  .admin-reservations .list article { min-width: 580px; }
+
+  .booking-nav { height: 64px; padding: 0 16px; gap: 12px; }
+  .booking-nav > span { display: none; }
+  .booking-nav .logo { width: 112px; height: 50px; }
+  .booking-nav > a:nth-child(2) { font-size: 0; }
+  .booking-nav > a:nth-child(2):before { content: '<'; font-size: 24px; }
+
+  .client-nav { height: 64px; }
+  .client-nav .logo { width: 112px; height: 50px; }
+  .client-nav + main .hero { padding: 34px 16px; min-height: 205px; }
+  .client-nav + main .hero h1 { font-size: 32px; letter-spacing: -2px; }
+  .client-nav + main .content { padding: 12px; }
+  .bookings > article { padding: 9px; }
+  .bookings .car { height: 175px; }
+  .bookings .title h3 { font-size: 19px; }
+  .bookings .route { gap: 8px; flex-wrap: wrap; }
+  .bookings .meta { flex-wrap: wrap; gap: 8px; }
+}
+
+@media (max-width: 380px) {
+  .hero-video-stage h1 { font-size: 39px; }
+  .auth-page .intro { font-size: 11px; }
+  .booking-card h2 { font-size: 27px; }
+  .booking-card .calendar { margin-inline: -3px; padding: 11px; }
+  .booking-card .days button { height: 34px; margin: 1px; }
+}
