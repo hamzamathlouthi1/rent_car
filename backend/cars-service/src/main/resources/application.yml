@@ -1,16 +1,26 @@
 server:
-  port: ${PORT:8081}
+  port: 8081
 spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 50MB
   datasource:
-    url: ${CAR_DATABASE_URL:jdbc:mysql://localhost:3306/cars_service?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC}
-    username: ${CAR_DATABASE_USERNAME:location_user}
-    password: ${CAR_DATABASE_PASSWORD:location_password}
+    url: ${CAR_DATABASE_URL}
+    username: ${CAR_DATABASE_USERNAME}
+    password: ${CAR_DATABASE_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: validate
     open-in-view: false
+    properties:
+      hibernate.default_schema: cars_service
   flyway:
     enabled: true
+    table: flyway_schema_history
+    schemas: cars_service
+    default-schema: cars_service
+    create-schemas: true
 app:
   jwt:
     secret: ${JWT_SECRET:change-this-development-secret-key-32chars}

@@ -23,7 +23,7 @@
 
 .brand-logo{display:flex;align-items:center;flex:0 0 auto}
 .account-link{background:#111;color:#fff;padding:12px 18px;font-size:13px;font-weight:800;transition:.2s}.account-link:hover{background:var(--r);transform:translateY(-2px)}
-.user-menu{display:flex;align-items:center;gap:10px;white-space:nowrap}.avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--r);color:#fff;font-size:12px;font-weight:900}.user-copy{display:flex;flex-direction:column;line-height:1.15}.user-copy small{color:#999;font-size:10px}.user-copy strong{font-size:13px}.user-menu button{border:0;background:transparent;color:#777;font-size:11px;font-weight:700;cursor:pointer;padding:8px}.user-menu button:hover{color:var(--r)}
+.user-menu{display:flex;align-items:center;gap:10px;white-space:nowrap}.avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--r);color:#fff;font-size:12px;font-weight:900}.profile-avatar{display:block;object-fit:cover;border:2px solid #fff}.user-copy{display:flex;flex-direction:column;line-height:1.15}.user-copy small{color:#999;font-size:10px}.user-copy strong{font-size:13px}.user-menu button{border:0;background:transparent;color:#777;font-size:11px;font-weight:700;cursor:pointer;padding:8px}.user-menu button:hover{color:var(--r)}
 .admin-link{font-size:11px;font-weight:800;color:var(--r)!important;border-left:1px solid #ddd;padding-left:10px}
 @media(max-width:900px){.user-copy,.user-menu button{display:none}.user-menu{margin-left:auto}.menu{margin-left:0!important}}
 
@@ -55,9 +55,6 @@
 @media(max-width:600px){.brand-logo img{width:132px;height:54px}.footer-logo img{width:175px}}
 .wordmark{display:inline-flex!important;align-items:center;gap:10px;background:transparent!important;padding:0!important;box-shadow:none!important;color:#fff}.wordmark>b{position:relative;display:grid;place-items:center;width:46px;height:46px;background:var(--r);color:#fff;font-size:18px;font-style:italic;letter-spacing:-1px;clip-path:polygon(0 0,100% 0,88% 100%,0 100%)}.wordmark>b:after{content:'';position:absolute;right:-5px;bottom:5px;width:2px;height:24px;background:#fff;opacity:.75}.wordmark>span{display:flex;flex-direction:column;font-size:21px;font-weight:900;line-height:.8;letter-spacing:2px}.wordmark>span>small{margin-top:8px;color:#c4c4c7;font-size:7px;letter-spacing:3.2px}.wordmark:hover>b{transform:skewX(-4deg);box-shadow:8px 0 0 #ffffff22}.footer-logo>span>small{color:#777}@media(max-width:600px){.wordmark>b{width:40px;height:40px}.wordmark>span{font-size:17px}}
 
-.price-filter{display:grid;grid-template-columns:minmax(180px,240px) minmax(220px,1fr) auto;align-items:center;gap:24px;margin:32px 0 28px;padding:18px 20px;border:1px solid #e5e5e7;border-radius:8px;background:#fafafa}.price-filter>div{display:flex;flex-direction:column;gap:5px}.price-filter label{font-size:10px;color:#777;font-weight:800;text-transform:uppercase;letter-spacing:.8px}.price-filter strong{font-size:18px;color:#d70c19}.price-filter input{width:100%;accent-color:#e10d1a;cursor:pointer}.price-filter input:disabled{cursor:not-allowed;opacity:.45}.price-filter button{padding:10px 15px;border:1px solid #d7d7da;border-radius:5px;background:#fff;color:#333;font-size:10px;font-weight:800;cursor:pointer}.price-filter button:disabled{opacity:.45;cursor:not-allowed}.no-cars{grid-column:1/-1;margin:0;padding:55px;text-align:center;color:#777;background:#f7f7f8;border-radius:4px}
-@media(max-width:700px){.price-filter{grid-template-columns:1fr;gap:14px}.price-filter button{width:100%}}
-
 /* Black navigation bar and the original FM Rent A Car PNG logo. */
 .bookings-link{display:inline-flex;align-items:center;height:34px;padding:0 13px;border:1px solid #e10d1a;border-radius:5px;color:#fff!important;text-decoration:none;font-size:9px!important;font-weight:850;text-transform:uppercase;letter-spacing:.5px}.bookings-link:hover{background:#e10d1a}
 .header{background:#0b0b0d!important;border-bottom-color:#2b2b2f!important;box-shadow:0 8px 30px #00000035;color:#fff!important}
@@ -69,6 +66,18 @@
 .header .menu{color:#fff!important}
 .footer-logo{width:190px;height:72px}
 @media(max-width:900px){.header nav{background:#0b0b0d!important;border-color:#2b2b2f!important}.header nav a{color:#fff!important}.header .wordmark{width:142px;height:54px}}
+
+/* Final navigation identity. Kept highly specific so legacy theme rules cannot override it. */
+:host .header{background:#fff!important;color:#111!important;border-bottom:1px solid #e4e7eb!important;box-shadow:0 8px 28px #11182712!important}
+:host .header .wordmark{display:block!important;width:150px!important;height:68px!important;flex:0 0 150px!important;background:url('/drivetime.png') center/contain no-repeat!important;padding:0!important;box-shadow:none!important}
+:host .header .wordmark>b,:host .header .wordmark>span{display:none!important}
+:host .header nav a,:host .header .account-link{position:relative!important;display:inline-flex!important;align-items:center!important;min-height:38px!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;color:#111!important;font-size:13px!important;font-weight:750!important;text-shadow:none!important;transform:none!important}
+:host .header nav a:after,:host .header .account-link:after{content:''!important;position:absolute!important;left:0!important;right:100%!important;bottom:2px!important;height:2px!important;background:#111!important;transition:right .22s ease!important}
+:host .header nav a:hover,:host .header .account-link:hover{background:transparent!important;color:#111!important;border-color:transparent!important;box-shadow:none!important}
+:host .header nav a:hover:after,:host .header .account-link:hover:after{right:0!important}
+:host .header .menu{color:#111!important}
+@media(max-width:900px){:host .header nav{background:#fff!important;border-top:1px solid #e4e7eb!important}:host .header nav a{color:#111!important}}
+@media(max-width:600px){:host .header .wordmark{width:120px!important;height:58px!important;flex-basis:120px!important}}
 
 /* 2026 sport direction: strong product photography, lean surfaces, confident type. */
 .car-card{cursor:pointer;outline:none}.car-card:focus-visible{outline:3px solid #e10d1a;outline-offset:4px}.gallery-count{position:absolute;right:10px;bottom:10px;padding:6px 9px;background:#0b0b0dcc;color:#fff;border-radius:4px;font-size:7px;letter-spacing:.5px;text-transform:uppercase}.car-card .car-info>button{cursor:pointer}

@@ -1,0 +1,3 @@
+ALTER TABLE reservations ADD COLUMN pickup_mode VARCHAR(20) NOT NULL DEFAULT 'AGENCE';
+ALTER TABLE reservations ADD COLUMN pickup_latitude DOUBLE PRECISION;
+ALTER TABLE reservations ADD COLUMN pickup_longitude DOUBLE PRECISION;

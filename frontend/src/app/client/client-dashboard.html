@@ -1,0 +1,7 @@
+<div class="client-shell">
+  <header class="client-topbar" aria-label="Espace client">
+    <nav aria-label="Navigation client"><a routerLink="/mes-reservations/reservations" routerLinkActive="active">Mes réservations</a><a routerLink="/mes-reservations/profil" routerLinkActive="active">Mon profil</a><a routerLink="/" fragment="vehicules">Accueil</a></nav>
+    @if (auth.currentUser(); as user) {<div class="client-account">@if (auth.avatarUrl(); as avatar) {<img [src]="avatar" alt="Photo de profil">} @else {<span class="initials">{{ user.firstName.charAt(0) }}{{ user.lastName.charAt(0) }}</span>}<div><strong>{{ user.firstName }}</strong><small>Espace client</small></div><button type="button" (click)="logout()" aria-label="Déconnexion">↪</button></div>}
+  </header>
+  <main class="client-content"><router-outlet></router-outlet></main>
+</div>

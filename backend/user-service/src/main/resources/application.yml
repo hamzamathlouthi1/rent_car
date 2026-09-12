@@ -1,10 +1,10 @@
 server:
-  port: ${PORT:8080}
+  port: 8080
 spring:
   datasource:
-    url: ${DATABASE_URL:jdbc:mysql://localhost:3306/location_voiture?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC}
-    username: ${DATABASE_USERNAME:location_user}
-    password: ${DATABASE_PASSWORD:location_password}
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
     hikari:
       connection-timeout: 30000
       maximum-pool-size: ${DATABASE_POOL_SIZE:10}
@@ -13,8 +13,14 @@ spring:
     hibernate:
       ddl-auto: validate
     open-in-view: false
+    properties:
+      hibernate.default_schema: user_service
   flyway:
     enabled: true
+    table: flyway_schema_history
+    schemas: user_service
+    default-schema: user_service
+    create-schemas: true
     locations: classpath:db/migration
     validate-migration-naming: true
 app:

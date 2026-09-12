@@ -11,7 +11,7 @@ interface Car { id: number; name: string; category: CarCategory; price: number; 
 export class Home {
   constructor(private readonly elementRef: ElementRef<HTMLElement>, private readonly destroyRef: DestroyRef, private readonly http: HttpClient, protected readonly auth: AuthService, private readonly router:Router) {
     afterNextRender(() => {
-      this.auth.restoreSession().subscribe();
+      this.auth.restoreSession().subscribe(user => { if (user) this.auth.loadAvatar(); });
       this.http.get<Car[]>('/api/cars').subscribe({ next: cars => this.cars.set(cars), error: () => this.cars.set([]) });
       const heroVideo = this.elementRef.nativeElement.querySelector<HTMLVideoElement>('.hero-video');
       if (heroVideo) {
@@ -62,8 +62,6 @@ export class Home {
     });
   }
 
-  protected readonly menuOpen = signal(false);
-  protected readonly selectedMaxPrice = signal<number | null>(null);
   protected readonly activeFaq = signal<number | null>(0);
   protected logout(): void { this.auth.logout(); }
   protected readonly cars = signal<Car[]>([]);
@@ -73,15 +71,6 @@ export class Home {
     { q: 'Puis-je modifier ou annuler ma réservation ?', a: 'Oui, la modification est gratuite jusqu’à 48 heures avant le départ. Nos conseillers restent disponibles 7j/7.' },
     { q: 'Proposez-vous la livraison du véhicule ?', a: 'Oui, nous livrons votre voiture à l’aéroport, à l’hôtel ou à l’adresse de votre choix dans les principales villes tunisiennes.' }
   ];
-  protected get maximumPrice(): number { return Math.max(0, ...this.cars().map(car => car.price)); }
-  protected get filteredCars(): Car[] {
-    const maximum = this.selectedMaxPrice();
-    return maximum === null ? this.cars() : this.cars().filter(car => car.price <= maximum);
-  }
-  protected filterByPrice(event: Event): void {
-    this.selectedMaxPrice.set(Number((event.target as HTMLInputElement).value));
-  }
-  protected clearPriceFilter(): void { this.selectedMaxPrice.set(null); }
   protected toggleFaq(index: number): void { this.activeFaq.set(this.activeFaq() === index ? null : index); }
   protected reserve(car: Car): void { this.router.navigate(['/reservation',car.id]); }
 }

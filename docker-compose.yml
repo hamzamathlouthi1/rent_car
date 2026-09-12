@@ -1,40 +1,17 @@
 services:
-  mysql:
-    image: mysql:8.4
-    environment:
-      MYSQL_DATABASE: ${MYSQL_DATABASE:-location_voiture}
-      MYSQL_USER: ${MYSQL_USER:-location_user}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-location_password}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-local_root_password}
-    command:
-      - --character-set-server=utf8mb4
-      - --collation-server=utf8mb4_unicode_ci
-    volumes:
-      - mysql-data:/var/lib/mysql
-      - ./docker/mysql/init:/docker-entrypoint-initdb.d:ro
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD-SHELL", "mysql -h localhost -u$$MYSQL_USER -p$$MYSQL_PASSWORD $$MYSQL_DATABASE -e 'SELECT 1' --silent"]
-      interval: 10s
-      timeout: 5s
-      retries: 15
-      start_period: 20s
-
   user-service:
-    image: locationvoiture-user-service:latest
+    build:
+      context: ./backend/user-service
     environment:
-      DATABASE_URL: jdbc:mysql://mysql:3306/${MYSQL_DATABASE:-location_voiture}?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&allowPublicKeyRetrieval=true
-      DATABASE_USERNAME: ${MYSQL_USER:-location_user}
-      DATABASE_PASSWORD: ${MYSQL_PASSWORD:-location_password}
+      DATABASE_URL: ${NEON_DATABASE_URL}
+      DATABASE_USERNAME: ${NEON_DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${NEON_DATABASE_PASSWORD}
       ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@fmrent.tn}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD:-change-this-admin-password}
       ADMIN_FIRST_NAME: ${ADMIN_FIRST_NAME:-FM}
       ADMIN_LAST_NAME: ${ADMIN_LAST_NAME:-Admin}
       JWT_SECRET: ${JWT_SECRET:-local-development-secret-change-before-production-2026}
       JWT_EXPIRATION_MS: 86400000
-    depends_on:
-      mysql:
-        condition: service_healthy
     restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "wget -q -O - http://localhost:8080/actuator/health | grep -q UP"]
@@ -42,18 +19,16 @@ services:
       timeout: 3s
       retries: 10
   cars-service:
-    image: locationvoiture-cars-service:latest
+    build:
+      context: ./backend/cars-service
     environment:
-      CAR_DATABASE_URL: jdbc:mysql://mysql:3306/cars_service?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&allowPublicKeyRetrieval=true
-      CAR_DATABASE_USERNAME: ${MYSQL_USER:-location_user}
-      CAR_DATABASE_PASSWORD: ${MYSQL_PASSWORD:-location_password}
+      CAR_DATABASE_URL: ${NEON_DATABASE_URL}
+      CAR_DATABASE_USERNAME: ${NEON_DATABASE_USERNAME}
+      CAR_DATABASE_PASSWORD: ${NEON_DATABASE_PASSWORD}
       JWT_SECRET: ${JWT_SECRET:-local-development-secret-change-before-production-2026}
       IMAGEKIT_URL_ENDPOINT: ${IMAGEKIT_URL_ENDPOINT}
       IMAGEKIT_PUBLIC_KEY: ${IMAGEKIT_PUBLIC_KEY}
       IMAGEKIT_PRIVATE_KEY: ${IMAGEKIT_PRIVATE_KEY}
-    depends_on:
-      mysql:
-        condition: service_healthy
     restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "wget -q -O - http://localhost:8081/actuator/health | grep -q UP"]
@@ -61,7 +36,8 @@ services:
       timeout: 3s
       retries: 10
   frontend:
-    image: locationvoiture-frontend:latest
+    build:
+      context: ./frontend
     ports:
       - "80:80"
     depends_on:
@@ -73,17 +49,16 @@ services:
         condition: service_healthy
     restart: unless-stopped
   reservations-service:
-    image: locationvoiture-reservations-service:latest
+    build:
+      context: ./backend/reservations-service
     environment:
-      RESERVATION_DATABASE_URL: jdbc:mysql://mysql:3306/reservations_service?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&allowPublicKeyRetrieval=true
-      RESERVATION_DATABASE_USERNAME: ${MYSQL_USER:-location_user}
-      RESERVATION_DATABASE_PASSWORD: ${MYSQL_PASSWORD:-location_password}
+      RESERVATION_DATABASE_URL: ${NEON_DATABASE_URL}
+      RESERVATION_DATABASE_USERNAME: ${NEON_DATABASE_USERNAME}
+      RESERVATION_DATABASE_PASSWORD: ${NEON_DATABASE_PASSWORD}
       JWT_SECRET: ${JWT_SECRET:-local-development-secret-change-before-production-2026}
       CARS_SERVICE_URL: http://cars-service:8081
       IMAGEKIT_PRIVATE_KEY: ${IMAGEKIT_PRIVATE_KEY}
     depends_on:
-      mysql:
-        condition: service_healthy
       cars-service:
         condition: service_healthy
     restart: unless-stopped
@@ -92,5 +67,3 @@ services:
       interval: 10s
       timeout: 3s
       retries: 10
-volumes:
-  mysql-data:

@@ -1,15 +1,25 @@
 server:
-  port: ${PORT:8082}
+  port: 8082
 spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
   datasource:
-    url: ${RESERVATION_DATABASE_URL:jdbc:mysql://localhost:3306/reservations_service}
-    username: ${RESERVATION_DATABASE_USERNAME:root}
-    password: ${RESERVATION_DATABASE_PASSWORD:}
+    url: ${RESERVATION_DATABASE_URL}
+    username: ${RESERVATION_DATABASE_USERNAME}
+    password: ${RESERVATION_DATABASE_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: validate
+    properties:
+      hibernate.default_schema: reservations_service
   flyway:
     enabled: true
+    table: flyway_schema_history
+    schemas: reservations_service
+    default-schema: reservations_service
+    create-schemas: true
 management:
   endpoints:
     web:

@@ -1,3 +1,3 @@
 package com.fmrent.reservations.dto;
-import jakarta.validation.constraints.*; import java.time.LocalDate;
-public record CreateReservationRequest(@NotNull Long carId,@NotBlank @Pattern(regexp="^[+0-9 ()-]{8,25}$") String phone,@NotBlank @Size(max=150) String pickupLocation,@NotNull @FutureOrPresent LocalDate startDate,@NotNull LocalDate endDate){}
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize; import com.fmrent.reservations.config.FlexibleLocalDateTimeDeserializer; import jakarta.validation.constraints.*; import java.time.LocalDateTime;
+public record CreateReservationRequest(@NotNull Long carId,@NotBlank @Pattern(regexp="^[+0-9 ()-]{8,25}$") String phone,@NotBlank @Size(max=150) String pickupLocation,@NotBlank @Pattern(regexp="^(DOMICILE|AGENCE|AEROPORT)$") String pickupMode,Double pickupLatitude,Double pickupLongitude,@NotNull @FutureOrPresent @JsonDeserialize(using=FlexibleLocalDateTimeDeserializer.class) LocalDateTime startDate,@NotNull @JsonDeserialize(using=FlexibleLocalDateTimeDeserializer.class) LocalDateTime endDate){}

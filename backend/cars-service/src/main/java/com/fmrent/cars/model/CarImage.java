@@ -14,4 +14,5 @@ public class CarImage {
     public String getUrl(){ return url; }
     public String getFileId(){ return fileId; }
     public int getDisplayOrder(){ return displayOrder; }
+    public void setDisplayOrder(int displayOrder){ this.displayOrder=displayOrder; }
 }

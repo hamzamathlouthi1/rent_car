@@ -34,9 +34,9 @@
 
     <div class="workspace">
       <form (ngSubmit)="submit()">
-        <div class="panel-title"><div><p>NOUVEAU VÉHICULE</p><h2>Ajouter à la flotte</h2></div><span>01</span></div>
-        <label class="upload multi-upload"><input type="file" accept="image/*" multiple (change)="chooseImages($event)"><span class="upload-content"><b>＋</b><strong>Ajouter plusieurs photos</strong><small>1 à 8 images · la première sera la couverture</small></span></label>
-        @if(imagePreviews.length){<div class="preview-grid">@for(preview of imagePreviews;track preview;let i=$index){<div><img [src]="preview" [alt]="'Photo '+(i+1)"><span>{{i===0?'COUVERTURE':i+1}}</span><button type="button" (click)="removePreview(i)">×</button></div>}</div>}
+        <div class="panel-title"><div><p>{{ editingCarId === null ? 'NOUVEAU VÉHICULE' : 'MODIFICATION DU VÉHICULE' }}</p><h2>{{ editingCarId === null ? 'Ajouter à la flotte' : 'Modifier le véhicule' }}</h2></div><span>01</span></div>
+        <label class="upload multi-upload"><input type="file" accept="image/*" multiple (change)="chooseImages($event)"><span class="upload-content"><b>＋</b><strong>Ajouter plusieurs photos</strong><small>Ajoutez vos images puis choisissez la couverture</small></span></label>
+        @if(imagePreviews.length){<div class="preview-grid">@for(preview of imagePreviews;track preview;let i=$index){<div><img [src]="preview" [alt]="'Photo '+(i+1)">@if(i===0){<span class="cover-label">COUVERTURE</span>}@else {<span class="photo-label">PHOTO {{i+1}}</span>}@if(i!==0){<button class="cover-button" type="button" (click)="setCover(i)">Couverture</button>}<button class="remove-button" type="button" (click)="removePreview(i)">×</button></div>}</div>}
         <div class="form-grid">
           <label class="wide"><span>Modèle du véhicule</span><input required name="name" [(ngModel)]="model.name" placeholder="Ex. Peugeot 208"></label>
           <label><span>Catégorie</span><select name="category" [(ngModel)]="model.category"><option>Citadine</option><option>SUV</option><option>Berline</option><option>Premium</option><option>Utilitaire</option></select></label>
@@ -46,7 +46,7 @@
           <label><span>Carburant</span><select name="fuel" [(ngModel)]="model.fuel"><option>Essence</option><option>Diesel</option><option>Hybride</option><option>Électrique</option></select></label>
           <label><span>Badge</span><input name="badge" [(ngModel)]="model.badge" placeholder="Nouveau"></label>
         </div>
-        <button class="primary" [disabled]="loading() || !imageFiles.length">{{ loading() ? 'Publication en cours…' : 'Publier le véhicule' }} <span>→</span></button>
+        <div class="form-actions"><button class="primary" [disabled]="loading() || !selectedFiles.length">{{ loading() ? 'Enregistrement…' : (editingCarId === null ? 'Publier le véhicule' : 'Enregistrer les modifications') }} <span>→</span></button>@if(editingCarId !== null){<button class="secondary" type="button" (click)="cancelEdit()">Annuler</button>}</div>
       </form>
 
       <section class="fleet-panel">
@@ -60,7 +60,7 @@
                 <div class="car-image"><img [src]="car.image" [alt]="car.name">@if(car.badge){<b>{{ car.badge }}</b>}</div>
                 <div class="car-main"><small>{{ car.category }}</small><h3>{{ car.name }}</h3><p><span>{{ car.transmission }}</span><span>{{ car.fuel }}</span><span>{{ car.seats }} places</span></p></div>
                 <div class="price"><strong>{{ car.price }}</strong><small>DT / JOUR</small></div>
-                <button class="delete" [disabled]="deletingId() === car.id" (click)="remove(car)" type="button"><span>⌫</span>{{ deletingId() === car.id ? 'Suppression…' : 'Supprimer' }}</button>
+                <div class="row-actions"><button class="edit" type="button" (click)="edit(car)">Modifier</button><button class="delete" [disabled]="deletingId() === car.id" (click)="remove(car)" type="button"><span>⌫</span>{{ deletingId() === car.id ? 'Suppression…' : 'Supprimer' }}</button></div>
               </article>
             } @empty {
               <div class="empty-state"><span>◇</span><strong>Votre flotte est vide</strong><p>Ajoutez votre premier véhicule avec le formulaire.</p></div>

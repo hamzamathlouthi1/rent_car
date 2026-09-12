@@ -1,13 +1,14 @@
 # See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
 
 # Compiled output
-/dist
+**/dist/
 **/target/
 **/data/
 .env
 /tmp
 /out-tsc
 /bazel-out
+**/.angular/
 
 # Node
 /node_modules
@@ -44,6 +45,3 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
-frontend/dist/
-frontend/.angular/
-**/node_modules/

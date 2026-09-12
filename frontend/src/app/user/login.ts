@@ -13,6 +13,6 @@ export class Login {
   protected submit(): void {
     if (this.form.invalid) { this.form.markAllAsTouched(); return; }
     this.loading.set(true); this.error.set(''); const value = this.form.getRawValue();
-    this.auth.login(value.email, value.password).pipe(finalize(() => this.loading.set(false))).subscribe({ next: response => { const returnUrl=this.route.snapshot.queryParamMap.get('returnUrl'); this.router.navigateByUrl(response.user.role === 'ADMIN' ? '/admin/cars' : returnUrl?.startsWith('/') ? returnUrl : '/'); }, error: err => this.error.set(err.error?.message ?? 'Email ou mot de passe incorrect.') });
+    this.auth.login(value.email, value.password).pipe(finalize(() => this.loading.set(false))).subscribe({ next: response => { const returnUrl=this.route.snapshot.queryParamMap.get('returnUrl'); this.router.navigateByUrl(response.user.role === 'ADMIN' ? '/admin/cars' : returnUrl?.startsWith('/') ? returnUrl : '/mes-reservations/reservations'); }, error: err => this.error.set(err.error?.message ?? 'Email ou mot de passe incorrect.') });
   }
 }

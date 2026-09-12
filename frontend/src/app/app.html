@@ -1,10 +1,7 @@
 @if (loading()) {
   <div class="loader" [class.leaving]="leaving()" role="status" aria-label="Chargement de FM Drive">
-    <div class="loader-glow"></div>
-    <div class="loader-brand"><span>F</span><div><strong>FM DRIVE</strong><small>RENT A CAR</small></div></div>
-    <div class="road"><i></i><b></b></div>
-    <p>PRÉPARATION DE VOTRE VOYAGE</p>
-    <div class="progress"><span></span></div>
+    <span class="simple-spinner" aria-hidden="true"></span>
+    <p>Chargement…</p>
   </div>
 }
 <router-outlet />
