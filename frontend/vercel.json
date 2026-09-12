@@ -1,5 +1,5 @@
 {
-  "outputDirectory": "dist/location-voiture",
+  "outputDirectory": "dist/location-voiture/browser",
   "rewrites": [
     { "source": "/api/admin/cars/:path*", "destination": "https://cars-service-r956.onrender.com/api/admin/cars/:path*" },
     { "source": "/api/admin/cars", "destination": "https://cars-service-r956.onrender.com/api/admin/cars" },
