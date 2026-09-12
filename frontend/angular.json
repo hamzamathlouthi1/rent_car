@@ -49,11 +49,19 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/leaflet/dist/images",
+                "output": "leaflet/dist/images"
               }
             ],
             "styles": [
               "src/styles.scss",
-              "public/leaflet/dist/leaflet.css"
+              "node_modules/leaflet/dist/leaflet.css"
+            ],
+            "scripts": [
+              "node_modules/leaflet/dist/leaflet.js"
             ]
           },
           "configurations": {
