@@ -30,6 +30,8 @@ Ouvrez `http://localhost`. Après connexion avec le compte administrateur défin
 
 Ne committez jamais `.env` et ne placez jamais la clé privée ImageKit dans Angular. En hébergement, stockez toutes ces valeurs dans le gestionnaire de secrets de la plateforme. Les trois services utilisent `NEON_DATABASE_URL` et leurs migrations Flyway créent leurs tables dans leurs schémas dédiés (`user_service`, `cars_service`, `reservations_service`).
 
+Sur une plateforme qui déploie les services séparément, configurez exactement la même valeur `JWT_SECRET` sur `user-service`, `cars-service` et `reservations-service`. Sans ce partage, la connexion réussit mais les services qui valident le token répondent `403 Forbidden`.
+
 ## API
 
 - `POST /api/auth/register`
