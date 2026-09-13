@@ -1,18 +1,6 @@
 {
   "outputDirectory": "dist/location-voiture/browser",
   "rewrites": [
-    { "source": "/api/admin/cars/:path*", "destination": "https://cars-service-r956.onrender.com/api/admin/cars/:path*" },
-    { "source": "/api/admin/cars", "destination": "https://cars-service-r956.onrender.com/api/admin/cars" },
-    { "source": "/api/cars/:path*", "destination": "https://cars-service-r956.onrender.com/api/cars/:path*" },
-    { "source": "/api/cars", "destination": "https://cars-service-r956.onrender.com/api/cars" },
-
-    { "source": "/api/admin/reservations/:path*", "destination": "https://reservations-service-72vt.onrender.com/api/admin/reservations/:path*" },
-    { "source": "/api/admin/reservations", "destination": "https://reservations-service-72vt.onrender.com/api/admin/reservations" },
-    { "source": "/api/reservations/:path*", "destination": "https://reservations-service-72vt.onrender.com/api/reservations/:path*" },
-    { "source": "/api/reservations", "destination": "https://reservations-service-72vt.onrender.com/api/reservations" },
-
-    { "source": "/api/:path*", "destination": "https://user-service-0cvp.onrender.com/api/:path*" },
-
     { "source": "/:path*", "destination": "/index.html" }
   ]
 }
