@@ -1,6 +1,5 @@
 # Agence de location des voitures
 https://rent-car-murex.vercel.app/
-Application de location de voitures composée d'un frontend Angular et de trois microservices Spring Boot sécurisés.
 
 ## Architecture
 
